@@ -1,0 +1,25 @@
+﻿<Window x:Class="PasswordGen.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PasswordGen"
+        mc:Ignorable="d"
+        Title="Password Generator" Height="156" Width="291" Closing="Window_Close">
+    <Grid Loaded="Grid_Loaded">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="69*"/>
+            <ColumnDefinition Width="28*"/>
+        </Grid.ColumnDefinitions>
+        <Button x:Name="Button" Content="生成" HorizontalAlignment="Left" Margin="119,10,0,0" VerticalAlignment="Top" Height="39" Width="151" Click="Button_Click" Grid.ColumnSpan="2"/>
+        <CheckBox x:Name="conboBoxCh" Content="字符" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="comboBoxStr" Content="小写字母" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="comboBoxUpStr" Content="大写字母" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="comboBoxNum" Content="数字" HorizontalAlignment="Left" Margin="10,70,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="PasswordTextBox" HorizontalAlignment="Left" Margin="119,55,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="151" Height="34" VerticalContentAlignment="Center" Grid.ColumnSpan="2" IsReadOnly="True"/>
+        <TextBox x:Name="count" InputMethod.IsInputMethodEnabled="False" PreviewKeyDown="TextBox_PreviewKeyDown" HorizontalAlignment="Left" Margin="86,66,0,0" TextWrapping="Wrap" Text="16" VerticalAlignment="Top" Width="28" Height="22" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+        <Label x:Name="tips" Content=" " HorizontalAlignment="Left" Margin="10,90,0,0" VerticalAlignment="Top" Height="25" Width="160"/>
+        <Label Content="=>" HorizontalAlignment="Left" Margin="59,64,0,0" VerticalAlignment="Top" Width="27" Height="24"/>
+        <Button Content="打开" HorizontalAlignment="Left" Margin="178,93,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="92" Click="Button_Click_1"/>
+    </Grid>
+</Window>
