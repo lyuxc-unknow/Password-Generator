@@ -18,7 +18,7 @@ namespace PasswordGen
 
         private static FileStream fileStream = new(Directory.GetCurrentDirectory() + "\\passwordBoox.txt", FileMode.Append);
         private static StreamWriter writer = new(fileStream);
-
+        Random random = new Random();
 
         public static string randomStr(int val)
         {
@@ -124,11 +124,42 @@ namespace PasswordGen
             }
         }
 
+        public void AddRamdom()
+        {
+            switch (random.Next(0, 4))
+            {
+                case 0:
+                    if (conboBoxCh.IsChecked == true)//字符
+                    {
+                        PasswordTextBox.Text += randomChr(random.Next(0, 9));
+                    }
+                    break;
+                case 1:
+                    if (comboBoxNum.IsChecked == true)//数字
+                    {
+                        PasswordTextBox.Text += randomNum(random.Next(0, 9));
+                    }
+                    break;
+                case 2:
+                    if (comboBoxStr.IsChecked == true)//字母
+                    {
+                        PasswordTextBox.Text += randomStr(random.Next(0, 25));
+                    }
+                    break;
+                case 3:
+                    if (comboBoxUpStr.IsChecked == true)//大写字母
+                    {
+                        PasswordTextBox.Text += randomUpStr(random.Next(0, 25));
+                    }
+                    break;
+                default: return;
+            }
+        }
+
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             PasswordTextBox.Text = null;
             int a = 0;
-            Random random = new Random();
             if (conboBoxCh.IsChecked == true) a += 1;
             if (comboBoxNum.IsChecked == true) a += 1;
             if (comboBoxStr.IsChecked == true) a += 1;
@@ -137,42 +168,31 @@ namespace PasswordGen
             {
                 for (int i = 0; i < int.Parse(count.Text); i++)
                 {
-                    switch (random.Next(0, 4))
+                    AddRamdom();
+                    if (i % 256 == 0 && i > 256)
                     {
-                        case 0:
-                            if (conboBoxCh.IsChecked == true)//字符
+                        PasswordTextBox.Text += "\n";
+                    }
+                }
+                while (true)
+                {
+                    if (PasswordTextBox.Text.Length != int.Parse(count.Text))
+                    {
+                        for (int i = 0; i < int.Parse(count.Text) - PasswordTextBox.Text.Length; i++)
+                        {
+                            AddRamdom();
+                            if(i>=256 && i % 256==0)
                             {
-                                PasswordTextBox.Text += randomChr(random.Next(0, 9));
+                                PasswordTextBox.Text += "\n";
                             }
-                            break;
-                        case 1:
-                            if (comboBoxNum.IsChecked == true)//数字
-                            {
-                                PasswordTextBox.Text += randomNum(random.Next(0, 9));
-                            }
-                            break;
-                        case 2:
-                            if (comboBoxStr.IsChecked == true)//字母
-                            {
-                                PasswordTextBox.Text += randomStr(random.Next(0, 25));
-                            }
-                            break;
-                        case 3:
-                            if (comboBoxUpStr.IsChecked == true)//大写字母
-                            {
-                                PasswordTextBox.Text += randomUpStr(random.Next(0, 25));
-                            }
-                            break;
+                        }
+                    }
+                    else
+                    {
+                        break;
                     }
                 }
             }
-            //for (int i = 0; i < a * int.Parse(count.Text); i++)
-            //{
-            //    if(PasswordTextBox is not null)
-            //    {
-            //        PasswordTextBox.Text.Insert(random.Next(0, int.Parse(count.Text)), "");
-            //    }
-            //}
             writer.WriteLine("[" + DateTime.Now.ToString("F") + "]    " + PasswordTextBox.Text);
 
         }
@@ -204,7 +224,7 @@ namespace PasswordGen
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            Process.Start("notepad.exe",Directory.GetCurrentDirectory() + "\\passwordBoox.txt");
+            Process.Start("notepad.exe", Directory.GetCurrentDirectory() + "\\passwordBoox.txt");
         }
     }
 }
